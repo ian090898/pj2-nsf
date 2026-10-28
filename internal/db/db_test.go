@@ -48,6 +48,14 @@ func TestDb(t *testing.T) {
 	t.Run("Bbolt DB", testBboltDb)
 }
 
+func TestCustomDb(t *testing.T) {
+	if os.Getenv("NSF_TEST_CUSTOM_DB") != "1" {
+		t.Skip("custom database test is opt-in")
+	}
+
+	testCustomDb(t)
+}
+
 func testBboltDb(t *testing.T) {
 	var err error
 	dbInstance, err = db.NewDb("bbolt")
